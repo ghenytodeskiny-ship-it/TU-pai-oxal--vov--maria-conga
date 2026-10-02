@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa de Umbanda Pai Oxalá e Vovó Maria Conga - Comunidade</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;600&display=swap');
+body{ background:#fdfbf7; color:#2c2c2c; font-family:'Inter',sans-serif; line-height:1.7; margin:0; }
+header{ background:white; padding:40px 20px; text-align:center; border-bottom:3px solid #c8a951; position:relative; }
+header h1{ font-family:'Cinzel',serif; font-size:2.2rem; letter-spacing:2px; text-transform:uppercase; color:#0b1e3b; }
+header p{ font-style:italic; color:#2e6b4f; letter-spacing:3px; }
+.btn-admin{ position:absolute; top:15px; right:15px; background:#0b1e3b; color:#c8a951; border:1px solid #c8a951; padding:8px 14px; border-radius:30px; cursor:pointer; font-size:12px; }
+.hero{ background:linear-gradient(rgba(11,30,59,0.7), rgba(11,30,59,0.4)), url("https://images.unsplash.com/photo-1513151233558-d860c5398176?w=1200"); background-size:cover; background-position:center; height:350px; display:flex; align-items:center; justify-content:center; text-align:center; }
+.hero h1{ font-family:'Cinzel',serif; color:white; font-size:2.5rem; max-width:800px; }
+.container{ width:90%; max-width:1200px; margin:auto; padding:40px 0; }
+.section-title{ font-family:'Cinzel',serif; font-size:1.8rem; color:#0b1e3b; text-align:left; padding-left:20px; border-left:6px solid #c8a951; margin-bottom:30px; display:flex; justify-content:space-between; align-items:center; }
+.galeria{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:30px; }
+.card{ background:white; border-radius:16px; overflow:hidden; box-shadow:0 8px 30px rgba(11,30,59,0.08); border:1px solid rgba(200,169,81,0.2); }
+.card img{ width:100%; height:260px; object-fit:cover; }
+.card-content{ padding:22px; text-align:center; }
+.card-content h3{ font-family:'Cinzel',serif; color:#0b1e3b; }
+.card-content p{ font-weight:300; color:#555; margin-top:10px; text-align:justify; text-align-last:center; }
+.like-btn{ background:transparent; color:#0b1e3b; border:1px solid #0b1e3b; padding:8px 18px; border-radius:30px; cursor:pointer; margin-top:12px; font-weight:600; }
+.comentario{ width:100%; margin-top:15px; padding:12px; border-radius:30px; border:1px solid #ddd; background:#faf7f0; }
+.comentarios{ text-align:left; margin-top:10px; }
+.comentarios p{ background:#f0f4ff; border-left:3px solid #3a8dde; padding:10px 12px; margin-top:10px; text-align:left; }
+.informes{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:25px; }
+.pdf-card{ background:white; padding:30px 20px; border-radius:16px; text-align:center; box-shadow:0 8px 30px rgba(11,30,59,0.06); border-top:4px solid #c8a951; }
+.pdf-card a{ display:inline-block; margin-top:10px; text-decoration:none; background:#0b1e3b; color:white; padding:10px 22px; border-radius:30px; }
+
+/* PAINEL DE EDIÇÃO */
+#painel-edicao{ display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(11,30,59,0.85); z-index:999; overflow:auto; padding:30px; }
+#form-edicao{ background:#fdfbf7; max-width:600px; margin:20px auto; padding:25px; border-radius:16px; }
+#form-edicao h2{ font-family:'Cinzel',serif; color:#0b1e3b; text-align:center; margin-bottom:20px; }
+#form-edicao label{ display:block; margin-top:15px; font-weight:600; font-size:14px; }
+#form-edicao input, #form-edicao textarea{ width:100%; padding:10px; border-radius:8px; border:1px solid #ccc; margin-top:5px; }
+#form-edicao button{ margin-top:15px; width:100%; padding:12px; border:none; border-radius:30px; cursor:pointer; font-weight:bold; }
+.btn-salvar{ background:#2e6b4f; color:white; }
+.btn-fechar{ background:#ccc; color:#333; }
+footer{ background:#0b1e3b; color:#d9c89a; text-align:center; padding:40px 20px; margin-top:50px; font-family:'Cinzel',serif; letter-spacing:2px; }
+</style>
+</head>
+<body>
+
+<header>
+    <button class="btn-admin" onclick="abrirEdicao()">⚙️ Editar Site</button>
+    <h1>Casa de Umbanda Pai Oxalá e Vovó Maria Conga</h1>
+    <p>Fé, Caridade e Comunidade</p>
+</header>
+
+<section class="hero"><h1>Bem-vindos à nossa comunidade</h1></section>
+
+<div class="container">
+<h2 class="section-title">Eventos e Galerias</h2>
+<div class="galeria" id="galeria">
+    <!-- Os cards são gerados pelo JS -->
+</div>
+</div>
+
+<div id="painel-edicao">
+<div id="form-edicao">
+<h2>Editar Eventos</h2>
+
+<div id="edit-area"></div>
+
+<button class="btn-salvar" onclick="salvarEdicao()">💾 Salvar Alterações</button>
+<button class="btn-fechar" onclick="fecharEdicao()">Fechar sem salvar</button>
+<p style="text-align:center; font-size:12px; margin-top:15px; color:#666;">As fotos e nomes ficam salvos só neste celular/navegador. Para mudar pra todos, você precisa substituir o arquivo no servidor.</p>
+</div>
+</div>
+
+<div class="container">
+<h2 class="section-title">Informes e Documentos</h2>
+<div class="informes">
+<div class="pdf-card"><h3>Calendário de Giras</h3><p>Baixe o calendário atualizado.</p><a href="#">Visualizar PDF</a></div>
+<div class="pdf-card"><h3>Regulamento Interno</h3><p>Normas e orientações.</p><a href="#">Visualizar PDF</a></div>
+<div class="pdf-card"><h3>Campanhas Solidárias</h3><p>Informações sobre arrecadações.</p><a href="#">Visualizar PDF</a></div>
+</div>
+</div>
+
+<footer>© 2026 - Casa de Umbanda Pai Oxalá e Vovó Maria Conga</footer>
+
+<script>
+// DADOS PADRÃO
+let eventosPadrao = [
+  { titulo: "Gira de Caboclos", desc: "Vibrações da nossa última gira de Caboclos. Gratidão a todos que firmaram essa corrente de luz.", img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=900", likes: 0, comentarios: [] },
+  { titulo: "Festa de Iemanjá", desc: "Odoyá! Momento de entrega, flores e amor à Mãe Iemanjá que acolhe nossos pedidos.", img: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=900", likes: 0, comentarios: [] }
+];
+
+let eventos = JSON.parse(localStorage.getItem("temploEventos")) || eventosPadrao;
+
+function renderizar(){
+  let galeria = document.getElementById("galeria");
+  galeria.innerHTML = "";
+  eventos.forEach((ev, i) => {
+    galeria.innerHTML += `
+    <div class="card">
+        <img src="${ev.img}" alt="${ev.titulo}">
+        <div class="card-content">
+            <h3>${ev.titulo}</h3>
+            <p>${ev.desc}</p>
+            <button class="like-btn" onclick="curtir(${i})">❤️ Curtir (<span id="likes${i}">${ev.likes}</span>)</button>
+            <input type="text" class="comentario" id="comentario${i}" placeholder="Escreva um comentário">
+            <button class="like-btn" onclick="comentar(${i})">Comentar</button>
+            <div class="comentarios" id="lista${i}">${ev.comentarios.map(c=>`<p>💬 ${c}</p>`).join("")}</div>
+        </div>
+    </div>`;
+  });
+}
+
+function curtir(id){
+  eventos[id].likes++;
+  document.getElementById("likes"+id).innerText = eventos[id].likes;
+  localStorage.setItem("temploEventos", JSON.stringify(eventos));
+}
+function comentar(id){
+  let campo = document.getElementById("comentario"+id);
+  let texto = campo.value.trim();
+  if(texto){
+    eventos[id].comentarios.push(texto);
+    localStorage.setItem("temploEventos", JSON.stringify(eventos));
+    renderizar();
+  }
+}
+
+// EDIÇÃO
+function abrirEdicao(){
+  let area = document.getElementById("edit-area");
+  area.innerHTML = "";
+  eventos.forEach((ev, i) => {
+    area.innerHTML += `
+      <label>Evento ${i+1} - Título</label>
+      <input id="tit${i}" value="${ev.titulo}">
+      <label>Descrição</label>
+      <textarea id="desc${i}">${ev.desc}</textarea>
+      <label>Link da Foto (URL)</label>
+      <input id="img${i}" value="${ev.img}">
+      <hr style="margin:20px 0;">
+    `;
+  });
+  area.innerHTML += `<button onclick="addEvento()" style="background:#c8a951; color:white; padding:10px; border-radius:30px; width:100%; border:none; cursor:pointer;">+ Adicionar Novo Evento</button>`;
+  document.getElementById("painel-edicao").style.display = "block";
+}
+function salvarEdicao(){
+  eventos.forEach((ev, i) => {
+    ev.titulo = document.getElementById("tit"+i).value;
+    ev.desc = document.getElementById("desc"+i).value;
+    ev.img = document.getElementById("img"+i).value;
+  });
+  localStorage.setItem("temploEventos", JSON.stringify(eventos));
+  renderizar();
+  fecharEdicao();
+}
+function fecharEdicao(){ document.getElementById("painel-edicao").style.display = "none"; }
+function addEvento(){
+  eventos.push({ titulo: "Novo Evento", desc: "Descrição do novo evento", img: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=900", likes: 0, comentarios: [] });
+  abrirEdicao();
+}
+
+renderizar();
+</script>
+</body>
+</html>
